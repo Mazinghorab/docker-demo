@@ -11,18 +11,18 @@ app.use(bodyParser.urlencoded({
 app.use(bodyParser.json());
 
 app.get('/', function (req, res) {
-    res.sendFile(path.join(__dirname, "index.html"));
+    res.sendFile(path.join(__dirname, "../assets/index.html"));
 });
 
 app.get('/profile-picture', function (req, res) {
-    var img = fs.readFileSync(path.join(__dirname, '../photos/profile-picture.jpeg'));
+    var img = fs.readFileSync(path.join(__dirname, '../assets/profile-picture.jpeg'));
     res.writeHead(200, {'Content-Type': 'image/jpeg' });
     res.end(img, 'binary');
 });
 
 app.get('/get-profile', async function (req, res) {
     try {
-        const client = await MongoClient.connect('mongodb://admin:admin@127.0.0.1:27017');
+        const client = await MongoClient.connect('mongodb://mongodb:27017');
         const db = client.db('my_db');
         const query = { userid: 1 };
         
@@ -40,7 +40,7 @@ app.post('/update-profile', async function (req, res) {
     console.log('connecting to the db...');
 
     try {
-        const client = await MongoClient.connect('mongodb://admin:admin@127.0.0.1:27017');
+        const client = await MongoClient.connect('mongodb://mongodb:27017');
         console.log('successfully connected to the user-account db');
 
         const db = client.db('my_db');
